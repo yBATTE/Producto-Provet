@@ -444,86 +444,75 @@ img {
   }
 }
 
-/* ======= MOBILE-FIRST / FLUID ======= */
-:root{
-  --fs-body: clamp(15px, 1.4vw + 12px, 18px);
-  --fs-h1: clamp(28px, 4.2vw + 16px, 52px);
-  --fs-h2: clamp(22px, 2.6vw + 14px, 32px);
-  --space: clamp(16px, 3vw, 24px);
-}
-body{ font-size: var(--fs-body); }
-.container{ padding: 0 var(--space); }
+/* ======= MOBILE FIXES (no impacta desktop) ======= */
+@media (max-width: 768px){
 
-/* Header / Nav */
-.site-header{ height: 64px; }
-.header-inner{ height: 64px; }
-.burger{ display:block; line-height:1; padding:6px 10px; }
-.nav{
-  position: fixed; inset: 64px 0 auto 0;
-  background:#fff; padding: 20px var(--space);
-  flex-direction: column; gap: 16px;
-  transform: translateY(-120%); transition: .28s ease;
-  box-shadow: 0 10px 30px rgba(0,0,0,.12);
-}
-.nav a{ padding: 10px 0; font-size: 1.02rem; }
-.nav.open{ transform: translateY(0); }
+  /* —— Contenedores más respirados —— */
+  :root{ --space: 20px; }
+  .container{ padding: 0 var(--space); }
 
-/* Hero */
-.hero{ min-height: 72vh; }
-.hero-inner{
-  grid-template-columns: 1fr;
-  align-items: center; text-align: center;
-  padding: calc(var(--space) * 2) 0;
-}
-.hero-copy h1{ font-size: var(--fs-h1); }
-.hero-copy p{ margin-inline: auto; }
+  /* —— Header: marca centrada y burger a la derecha —— */
+  .header-inner{
+    position: relative;
+    justify-content: center;           /* centra el contenido */
+  }
+  .brand{
+    margin: 0 auto;                    /* centra el logo/nombre */
+  }
+  .burger{
+    position: absolute;                 /* mantiene el menú a la derecha */
+    right: var(--space);
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
-/* Parallax: sin 'fixed' en mobile (mejora rendimiento) */
-.parallax{ background-attachment: scroll; min-height: 46vh; }
-.parallax .overlay{ background: rgba(0,0,0,.4); } /* un toque más de contraste */
+  /* —— Hero: títulos más chicos para que no se corten —— */
+  .hero-copy h1{ font-size: clamp(28px, 8vw, 44px); }
+  .hero-copy p{  font-size: clamp(14px, 2.2vw + 10px, 18px); }
 
-/* Grids */
-.grid-2, .grid-3{ grid-template-columns: 1fr; gap: var(--space); }
+  /* —— Parallax / fondos: sin 'fixed' y mejor encuadre —— */
+  .parallax{
+    background-attachment: scroll;
+    background-position: center top;    /* evita cortes raros */
+    min-height: 46vh;
+  }
 
-/* Cards y listas */
-.card{ border-radius: 16px; padding: var(--space); }
-.ticks li{ margin: .3rem 0; }
+  /* —— Imágenes sueltas: nunca exceden ancho y mantienen proporción —— */
+  .col.visual img{
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+  }
 
-/* Info card (texto largo) */
-.info-card{ padding: var(--space); border-radius: 16px; }
-
-/* Composición: lista vertical en mobile; 2 col desde 768px */
-.spec .spec-inner{ max-width: 760px; text-align: left; }
-.spec h2{ font-size: var(--fs-h2); text-shadow: none; color: var(--ink); margin-bottom: 10px; }
-
-.spec-list{
-  display: flex; flex-direction: column;
-  gap: 10px; padding: var(--space);
-  background:#fff; border:1px solid #e7ecef; color: var(--ink);
-  border-radius: 14px; box-shadow: var(--shadow);
-}
-.spec-list li{ padding-left: 24px; position: relative; }
-.spec-list li::before{
-  content:"•"; position: absolute; left: 0; top: .15em;
-  color: var(--brand); font-weight: 800; font-size: 18px;
-}
-.spec-list strong{ color: var(--brand-dark); font-weight: 700; }
-
-@media (min-width:768px){
+  /* —— Composición e ingredientes: caja centrada y sin desbordes —— */
+  .spec .spec-inner{
+    max-width: 720px;                   /* más angosto en mobile */
+    margin: 0 auto;
+    padding-inline: var(--space);
+    text-align: left;
+  }
   .spec-list{
-    display: grid;
-    grid-template-columns: repeat(2, minmax(240px,1fr));
-    gap: 12px 36px;
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;                     /* CENTRADA */
+    padding: 18px 16px;                 /* menos padding para que no sobresalga */
+    border-radius: 14px;
+    box-sizing: border-box;             /* evita overflow por borde/sombra */
+  }
+  .spec-list li{
+    padding-left: 22px;
+    font-size: 15.5px;
+  }
+
+  /* —— Footer: centrado y en pila —— */
+  .footer-inner{
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+    padding: 18px 0;
+  }
+  .site-footer .top{
+    margin-top: 6px;                    /* botón “Volver arriba” debajo */
   }
 }
-
-/* Botones e inputs más tocables */
-.btn{ padding: 12px 18px; font-weight: 700; }
-@media (max-width:480px){ .btn{ width: 100%; text-align: center; } }
-
-.form input, .form textarea{
-  padding: 14px 16px; font-size: 1rem;
-}
-
-/* Pequeños ajustes */
-.scroll-indicator{ display:none; } /* evita ruido en mobile */
