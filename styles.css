@@ -443,3 +443,87 @@ img {
     display: block
   }
 }
+
+/* ======= MOBILE-FIRST / FLUID ======= */
+:root{
+  --fs-body: clamp(15px, 1.4vw + 12px, 18px);
+  --fs-h1: clamp(28px, 4.2vw + 16px, 52px);
+  --fs-h2: clamp(22px, 2.6vw + 14px, 32px);
+  --space: clamp(16px, 3vw, 24px);
+}
+body{ font-size: var(--fs-body); }
+.container{ padding: 0 var(--space); }
+
+/* Header / Nav */
+.site-header{ height: 64px; }
+.header-inner{ height: 64px; }
+.burger{ display:block; line-height:1; padding:6px 10px; }
+.nav{
+  position: fixed; inset: 64px 0 auto 0;
+  background:#fff; padding: 20px var(--space);
+  flex-direction: column; gap: 16px;
+  transform: translateY(-120%); transition: .28s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,.12);
+}
+.nav a{ padding: 10px 0; font-size: 1.02rem; }
+.nav.open{ transform: translateY(0); }
+
+/* Hero */
+.hero{ min-height: 72vh; }
+.hero-inner{
+  grid-template-columns: 1fr;
+  align-items: center; text-align: center;
+  padding: calc(var(--space) * 2) 0;
+}
+.hero-copy h1{ font-size: var(--fs-h1); }
+.hero-copy p{ margin-inline: auto; }
+
+/* Parallax: sin 'fixed' en mobile (mejora rendimiento) */
+.parallax{ background-attachment: scroll; min-height: 46vh; }
+.parallax .overlay{ background: rgba(0,0,0,.4); } /* un toque más de contraste */
+
+/* Grids */
+.grid-2, .grid-3{ grid-template-columns: 1fr; gap: var(--space); }
+
+/* Cards y listas */
+.card{ border-radius: 16px; padding: var(--space); }
+.ticks li{ margin: .3rem 0; }
+
+/* Info card (texto largo) */
+.info-card{ padding: var(--space); border-radius: 16px; }
+
+/* Composición: lista vertical en mobile; 2 col desde 768px */
+.spec .spec-inner{ max-width: 760px; text-align: left; }
+.spec h2{ font-size: var(--fs-h2); text-shadow: none; color: var(--ink); margin-bottom: 10px; }
+
+.spec-list{
+  display: flex; flex-direction: column;
+  gap: 10px; padding: var(--space);
+  background:#fff; border:1px solid #e7ecef; color: var(--ink);
+  border-radius: 14px; box-shadow: var(--shadow);
+}
+.spec-list li{ padding-left: 24px; position: relative; }
+.spec-list li::before{
+  content:"•"; position: absolute; left: 0; top: .15em;
+  color: var(--brand); font-weight: 800; font-size: 18px;
+}
+.spec-list strong{ color: var(--brand-dark); font-weight: 700; }
+
+@media (min-width:768px){
+  .spec-list{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(240px,1fr));
+    gap: 12px 36px;
+  }
+}
+
+/* Botones e inputs más tocables */
+.btn{ padding: 12px 18px; font-weight: 700; }
+@media (max-width:480px){ .btn{ width: 100%; text-align: center; } }
+
+.form input, .form textarea{
+  padding: 14px 16px; font-size: 1rem;
+}
+
+/* Pequeños ajustes */
+.scroll-indicator{ display:none; } /* evita ruido en mobile */
